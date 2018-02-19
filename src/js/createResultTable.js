@@ -1,80 +1,88 @@
-function createResultTable(data) {
-  const doc = document;
-  const container = doc.getElementById('table-container');
-  const cleanedData = data.filter(el => el.Value);
-  initTable(cleanedData);
-
-
-  /**
-   * Helpers
-   */
-
-  function initTable(array) {
-    const readyTable = container.querySelector('.table');
-    if (readyTable) {
-      initTbody(array, readyTable);
-      initSort(array, readyTable);
-      initFilter(array, readyTable);
-    } else {
-      const tbody = '<thead>' +
-          '<tr>' +
-            '<th>Variable</th>' +
-            '<th>Value</th>' +
-          '</tr>' +
-          '<tr>' +
-            '<th><input type="text" name="Variable"></th>' +
-            '<th><input type="text" name="Value"></th>' +
-          '</tr>' +
-        '</thead>' +
-        '<tbody></tbody>';
-
-      container.innerHTML = `<table class="table">${tbody}</table>`;
-      const table = container.querySelector('.table')
-      initTbody(array, table);
-      initSort(array, table);
-      initFilter(array, table);
-    }
+class createResultTable {
+  constructor() {
+    this.container = document.getElementById('table-container');
+    this.initAll = this.initAll.bind(this);
+    this.initTbody = this.initTbody.bind(this);
+    this.initSort = this.initSort.bind(this);
+    this.initFilter = this.initFilter.bind(this);
   }
 
-  function initTbody(array, table) {
+  initTable(array) {
+    this.data = array.filter(el => el.Value);
+    const {
+      container,
+      data,
+      initAll,
+    } = this;
+    const readyTable = container.querySelector('.table');
+    if (readyTable) {
+      initAll(data, readyTable);
+      return null;
+    }
+    const tbody = '<thead>' +
+      '<tr>' +
+      '<th>Variable</th>' +
+      '<th>Value</th>' +
+      '</tr>' +
+      '<tr>' +
+      '<th><input type="text" name="Variable"></th>' +
+      '<th><input type="text" name="Value"></th>' +
+      '</tr>' +
+      '</thead>' +
+      '<tbody></tbody>';
+
+    container.innerHTML = `<table class="table">${tbody}</table>`;
+    const table = container.querySelector('.table');
+    initAll(data, table);
+  }
+
+
+  initAll(data, table) {
+    const {
+      initTbody,
+      initSort,
+      initFilter
+    } = this;
+    initTbody(data, table);
+    initSort(data, table);
+    initFilter(data, table);
+  }
+
+
+  initTbody(data, table) {
     const tbody = table.getElementsByTagName('tbody')[0];
     let tr = '';
-    const length = array.length;
+    const length = data.length;
     for (let i = 0; i < length; i++) {
-      tr += `<tr><td>${array[i].Variable}</td><td>${array[i].Value}</td></tr>`;
+      tr += `<tr><td>${data[i].Variable}</td><td>${data[i].Value}</td></tr>`;
     }
     tbody.innerHTML = tr;
   }
 
-  function initSort(array, table) {
+  initSort(data, table) {
     const thead = table.getElementsByTagName('thead')[0];
     const handler = e => {
       const key = e.target.innerHTML;
       if (key === 'Variable' || key === 'Value') {
-        const sort = array.sort((a, b) =>  (a[key] > b[key]) ? 1 : ((b[key] > a[key]) ? -1 : 0));
-        initTbody(sort, table);
+        const sort = data.sort((a, b) =>  (a[key] > b[key]) ? 1 : ((b[key] > a[key]) ? -1 : 0));
+        this.initTbody(sort, table);
       }
     }
-
     thead.removeEventListener('click', handler);
     thead.addEventListener('click', handler);
   }
 
-  function initFilter(array, table) {
+  initFilter(data, table) {
     const inputs = table.querySelectorAll('input');
-    const cached = [...array];
     inputs.forEach(input => input.addEventListener('input', e => {
       const { name, value } = e.target;
       if (!value) {
-        initTbody(array, table);
+        this.initTbody(data, table);
         return null;
       }
-      const filtered = array.filter(el => el[name].toLowerCase().indexOf(value.toLowerCase()) + 1);
-      initTbody(filtered, table);
+      const filtered = data.filter(el => el[name].toLowerCase().indexOf(value.toLowerCase()) + 1);
+      this.initTbody(filtered, table);
     }));
   }
 }
-
-
-
 

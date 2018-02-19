@@ -37,22 +37,25 @@ window.onload = () => {
     const vin = input.value;
     const { onLine } = navigator;
     const cache = localStorage.getItem(vin);
+    const table = new createResultTable();
+
     if (!onLine) {
       checkIfBrowserOnline();
       if (cache) {
-        createResultTable(JSON.parse(cache));
+        table.initTable(JSON.parse(cache));
       } else alert(`VIN: ${vin} not cached!`);
       return null;
     }
+
     if (cache) {
-      createResultTable(JSON.parse(cache));
+      table.initTable(JSON.parse(cache));
     } else {
       const getData = request(`https://vpic.nhtsa.dot.gov/api/vehicles/decodevin/${vin}?format=json`);
       getData
         .then(data => {
           const { Results } = JSON.parse(data);
           localStorage.setItem(vin, JSON.stringify(Results));
-          createResultTable(Results);
+          table.initTable(Results);
         })
         .catch(e => console.error(e));
     }
