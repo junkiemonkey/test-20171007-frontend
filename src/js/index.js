@@ -50,8 +50,7 @@ window.onload = () => {
     if (cache) {
       table.initTable(JSON.parse(cache));
     } else {
-      const getData = request(`https://vpic.nhtsa.dot.gov/api/vehicles/decodevin/${vin}?format=json`);
-      getData
+      request(`https://vpic.nhtsa.dot.gov/api/vehicles/decodevin/${vin}?format=json`)
         .then(data => {
           const { Results } = JSON.parse(data);
           localStorage.setItem(vin, JSON.stringify(Results));
