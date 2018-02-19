@@ -1,0 +1,84 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  font: 400 14px/1.4 Helvetica;
+}
+
+.container {
+  margin: auto;
+  max-width: 1170px;
+  padding: 1px 15px;
+  text-align: center;
+}
+
+.form {
+  .error {
+    font-weight: bold;
+    color: red;
+    text-align: center;
+    display: block;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  input {
+    height: 35px;
+    padding-left: 10px;
+    border-radius: 3px;
+    width: 200px;
+    border: 1px solid #c0c0c0;
+  }
+  button {
+    background-color: #00de39;
+    color: #fff;
+    border-radius: 3px;
+    border: 1px solid #00de39;
+    height: 35px;
+    transition: all .3s;
+    cursor: pointer;
+    outline: none;
+    &[disabled] {
+      opacity: .5;
+      cursor: default;
+    }
+  }
+}
+.offline {
+  text-transform: uppercase;
+  color: red;
+  margin-bottom: 20px;
+  display: none;
+}
+
+.table {
+  width: 100%;
+  margin-top: 20px;
+  text-align: left;
+  border-collapse: collapse;
+  td {
+    border: 1px solid #c0c0c0;
+    padding: 5px 10px;
+    width: 50%;
+  }
+  th {
+    font-size: 18px;
+    padding: 5px 10px;
+    cursor: pointer;
+    text-align: center;
+    input {
+      font-size: 14px;
+      font-weight: normal;
+      //display: block;
+      border: 1px solid #c0c0c0;
+      padding-left: 10px;
+      border-radius: 3px;
+      height: 30px;
+      margin: auto;
+    }
+  }
+  @media (min-width: 1170px){
+    width: 70%;
+    margin: 20px auto;
+  }
+}
