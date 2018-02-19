@@ -6,12 +6,10 @@ window.onload = () => {
   const checkBtn = doc.getElementById('jsCheckBtn');
   const offline = doc.querySelector('.offline');
 
-
   setInterval(checkIfBrowserOnline, 2000);
   input.focus();
   input.addEventListener('input', handleInput);
   checkBtn.addEventListener('click', handleSubmit);
-
 
   /**
    * Input Handler
@@ -56,7 +54,7 @@ window.onload = () => {
           localStorage.setItem(vin, JSON.stringify(Results));
           table.initTable(Results);
         })
-        .catch(e => console.error(e));
+        .catch(e => alert(`Request error: ${e}`));
     }
   }
 
