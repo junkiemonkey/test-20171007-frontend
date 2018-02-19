@@ -61,10 +61,20 @@ body {
     padding: 5px 10px;
     width: 50%;
   }
+  thead {
+    tr:first-child {
+      th {
+        cursor: pointer;
+        transition: color .3s;
+        &:hover, &:active, &:focus {
+          color: #00de39;
+        }
+      }
+    }
+  }
   th {
     font-size: 18px;
     padding: 5px 10px;
-    cursor: pointer;
     text-align: center;
     input {
       font-size: 14px;

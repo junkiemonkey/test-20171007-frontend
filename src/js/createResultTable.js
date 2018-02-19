@@ -19,23 +19,24 @@ class createResultTable {
       initAll(data, readyTable);
       return null;
     }
-    const tbody = '<thead>' +
-      '<tr>' +
-      '<th>Variable</th>' +
-      '<th>Value</th>' +
-      '</tr>' +
-      '<tr>' +
-      '<th><input type="text" name="Variable"></th>' +
-      '<th><input type="text" name="Value"></th>' +
-      '</tr>' +
-      '</thead>' +
-      '<tbody></tbody>';
+    const tableBody = `
+      <thead>
+        <tr>
+          <th>Variable</th>
+          <th>Value</th>
+        </tr>
+        <tr>
+          <th><input type="text" name="Variable"></th>  
+          <th><input type="text" name="Value"></th>                
+        </tr>      
+      </thead>
+      <tbody></tbody>
+    `;
 
-    container.innerHTML = `<table class="table">${tbody}</table>`;
+    container.innerHTML = `<table class="table">${tableBody}</table>`;
     const table = container.querySelector('.table');
     initAll(data, table);
   }
-
 
   initAll(data, table) {
     const {
